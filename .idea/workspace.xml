@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="700d79dc-9df7-4120-b68d-5994ac7f5e74" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="ProjectId" id="1kPMQQj9WCzH8HmM5UP5h9HOrIt" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs.protractor.protractor_package" value="" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$USER_HOME$/PhpstormProjects/MioTemplate/Core/Controller.php" scriptParameters="ccc">
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="700d79dc-9df7-4120-b68d-5994ac7f5e74" name="Default Changelist" comment="" />
+      <created>1605597758745</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1605597758745</updated>
+      <workItem from="1605597760426" duration="1213000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="734" y="228" key="NewPhpClassDialog" timestamp="1605597779799">
+      <screen x="0" y="22" width="1920" height="978" />
+    </state>
+    <state x="734" y="228" key="NewPhpClassDialog/0.22.1920.978@0.22.1920.978" timestamp="1605597779799" />
+    <state x="762" y="437" key="NewPhpFileDialog" timestamp="1605598042616">
+      <screen x="0" y="22" width="1920" height="978" />
+    </state>
+    <state x="762" y="437" key="NewPhpFileDialog/0.22.1920.978@0.22.1920.978" timestamp="1605598042616" />
+    <state x="461" y="150" key="SettingsEditor" timestamp="1605599360828">
+      <screen x="0" y="22" width="1920" height="978" />
+    </state>
+    <state x="461" y="150" key="SettingsEditor/0.22.1920.978@0.22.1920.978" timestamp="1605599360828" />
+    <state x="625" y="235" key="run.anything.popup" timestamp="1605598549307">
+      <screen x="0" y="22" width="1920" height="978" />
+    </state>
+    <state x="625" y="235" key="run.anything.popup/0.22.1920.978@0.22.1920.978" timestamp="1605598549307" />
+  </component>
+</project>

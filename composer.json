@@ -1,0 +1,20 @@
+{
+    "name": "marco/composer-upload",
+    "description": "Upload file(s), setting extension and path destination",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marco Dattisi",
+            "email": "marco.dattisi@gmail.com"
+        }
+    ],
+    "autoload": {
+    "psr-4": {
+        "MarcoUpload\\": "src/"
+    }
+},
+    "require": {
+        "php": "^7.4"
+    }
+}
