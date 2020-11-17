@@ -5,7 +5,7 @@ require 'vendor/autoload.php';
 $file = new MarcoUpload\MarcoUpload(__DIR__ );
 
 $file->upload($_FILES['archivio'], [
-	'move' => '/uploaded/',                 // Cartella di sestinazione
+	'move' => '/uploaded/',                 // Cartella di destinazione
 	'size' => 2000000,                      // Grandezza file esempio 2MB
 	'type' => ['jpg', 'png']                // Estensioni accettate.
 ]);
