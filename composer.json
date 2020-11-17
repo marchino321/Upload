@@ -1,5 +1,5 @@
 {
-    "name": "marco/composer-upload",
+    "name": "marcodattisi/composer-upload",
     "description": "Upload file(s), setting extension and path destination",
     "type": "library",
     "license": "MIT",
