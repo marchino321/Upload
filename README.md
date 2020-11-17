@@ -1,4 +1,4 @@
-++<?php
+
 require 'vendor/autoload.php';
 // Creazione di istanze e definizione della posizione della cartella di caricamento del file
 $file = new MarcoUpload\MarcoUpload(__DIR__ );
