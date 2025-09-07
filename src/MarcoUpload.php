@@ -1,145 +1,111 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MarcoUpload;
 
+/**
+ * Gestione dell'upload dei file.
+ */
+class MarcoUpload
+{
+    /**
+     * Percorso di base in cui salvare i file caricati.
+     */
+    private string $path;
 
-class MarcoUpload {
+    /**
+     * Elenco degli errori occorsi durante l'upload.
+     *
+     * @var array<string,string>
+     */
+    private array $errors = [];
 
+    /**
+     * Imposta la cartella di destinazione per i file caricati.
+     */
+    public function __construct(string $path)
+    {
+        $this->path = rtrim($path, '/');
+    }
 
-	/**
-	 * @var type | $path
-	 */
+    /**
+     * Esegue l'upload di un file.
+     *
+     * @param array $file    Informazioni sul file provenienti da $_FILES.
+     * @param array $options Opzioni di configurazione: move, size, type.
+     *
+     * @return string|false Percorso del file caricato oppure FALSE in caso di errore.
+     */
+    public function upload(array $file, array $options): string|false
+    {
+        if (empty($file['name'])) {
+            $this->errors['file'] = 'Il file è obbligatorio';
+            return false;
+        }
 
+        $pathInfo = pathinfo($file['name']);
 
-	private $path  = NULL;
+        if (!in_array(strtolower($pathInfo['extension']), $options['type'], true)) {
+            $this->errors['type'] = 'Il formato non rispetta i parametri. (formati supportati: ' . implode(', ', $options['type']) . ')';
+            return false;
+        }
 
+        if ($file['size'] > $options['size']) {
+            $this->errors['size'] = 'Il file è più grande della grandezza settata. (size: ' . round($options['size'] / (1000 * 1000), 2) . 'MB)';
+            return false;
+        }
 
-	/**
-	 * @var type | erros
-	 */
+        $this->makeDirectory($options['move']);
+        $fileRename = $this->fileRename($pathInfo['extension']);
+        $pathFile = $this->path . $options['move'];
 
+        return $this->moveFile($file, $pathFile . '/' . $fileRename);
+    }
 
-	private $erros = FALSE;
+    /**
+     * Sposta il file nella directory specificata.
+     *
+     * @param array  $file        Dati del file da spostare.
+     * @param string $destination Percorso finale del file.
+     */
+    private function moveFile(array $file, string $destination): string|false
+    {
+        return move_uploaded_file($file['tmp_name'], $destination) ? $destination : false;
+    }
 
+    /**
+     * Crea la directory di destinazione se non esiste.
+     */
+    private function makeDirectory(string $dir): void
+    {
+        $fullPath = $this->path . $dir;
 
-	/**
-	 * -------------------------------------------------------------------------
-	 *  Cartella dove archiviare i file
-	 * -------------------------------------------------------------------------
-	 *
-	 * @param type $path
-	 */
+        if (!file_exists($this->path)) {
+            mkdir($this->path, 0777, true);
+        }
 
+        if (!file_exists($fullPath)) {
+            mkdir($fullPath, 0777, true);
+        }
+    }
 
-	public function __construct($path){
-		$this->path = $path;
-	}
+    /**
+     * Genera un nome casuale per il file mantenendo l'estensione.
+     */
+    private function fileRename(string $extension): string
+    {
+        return substr(md5((string) time()), 0, 12) . '@' . strtotime('now') . '.' . $extension;
+    }
 
-
-	/**
-	 * -------------------------------------------------------------------------
-	 *  Upload file singoli e multipli
-	 * -------------------------------------------------------------------------
-	 *
-	 * @param type $file
-	 * @param array $options
-	 */
-
-
-	public function Upload($file, array $options){
-
-		if(!empty($file['name'])) {
-			$pathInfo  = pathinfo($file['name']);
-
-			if(in_array(strtolower($pathInfo['extension']), $options['type'])){
-
-				if($file['size'] <= $options['size']){
-					$this->mkDir($options['move']); // Creo la cartella di destinazione
-
-					$fileRename = $this->fileRename($pathInfo['extension']); // Genero un nome random per il file per non sovrascrivere
-					$pathFile   = $this->path . $options['move']; // Definisco il percorso di destinazione
-
-					return $this->moveFile($file,  $pathFile . '/' . $fileRename); // Copio il file da tmp alla sua cartella
-				} else {
-					$this->erros['size'] = "Il file e piu grande della grandezza settata. (size: " . round($options['size'] / (1000 * 1000), 2) . "MB)";
-				}
-
-			} else {
-				$this->erros['type'] = "Il formato non rispetta i parametri. (formati supportati: " . implode(', ', $options['type']) . ")";
-			}
-
-		} else {
-			$this->erros['file'] = "Il file è obbligatorio ";
-		}
-	}
-
-
-	/**
-	 * -------------------------------------------------------------------------
-	 * Spostamento del file nella directory creata nell'applicazione
-	 * -------------------------------------------------------------------------
-	 *
-	 * @param type $file
-	 * @param type $destination
-	 * @return boolean
-	 */
-
-
-	private function moveFile($file, $destination){
-		if(move_uploaded_file($file['tmp_name'], $destination)){
-			return $destination;
-		} else {
-			return FALSE;
-		}
-	}
-
-
-	/**
-	 * -------------------------------------------------------------------------
-	 * Crea una directory all'interno della cartella definita in __contruct
-	 * -------------------------------------------------------------------------
-	 *
-	 * @param type $dir
-	 */
-
-
-	private function mkDir($dir) {
-		if(!file_exists($this->path . $dir)){
-			mkdir($this->path . $dir, 0777);
-		}
-
-		if(!file_exists($this->path )){
-			mkdir($this->path . $dir, 0777);
-		}
-	}
-
-
-	/**
-	 * -------------------------------------------------------------------------
-	 * Rinomina il nome del file da caricare con la crittografia.
-	 * -------------------------------------------------------------------------
-	 *
-	 * @param type $extension
-	 * @return type
-	 */
-
-
-	private function fileRename($extension) {
-		return substr(md5(time()), 0, 12) . '@' . strtotime('now') . '.' . $extension;
-	}
-
-
-	/**
-	 * -------------------------------------------------------------------------
-	 * Restituisce tutti i possibili errori.
-	 * -------------------------------------------------------------------------
-	 *
-	 * @return type
-	 */
-
-
-	public function getErros() {
-		return $this->erros;
-	}
-
+    /**
+     * Restituisce l'elenco degli errori verificati.
+     *
+     * @return array<string,string>
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
 }
+
